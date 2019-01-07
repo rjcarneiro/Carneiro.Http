@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageTags>http,request,handler</PackageTags>
+    <Authors>Ricardo Carneiro</Authors>
+    <Copyright>Copyright 2019 Ricardo Carneiro</Copyright>
+    <PackageProjectUrl>https://github.com/rjcarneiro/Carneiro.Http</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rjcarneiro/Carneiro.Http</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>Library that wraps http requests. Supports Get, Post, Put and Delete.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.0" />
+  </ItemGroup>
+
+</Project>
