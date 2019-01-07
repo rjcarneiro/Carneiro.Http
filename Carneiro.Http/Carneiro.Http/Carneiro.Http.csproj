@@ -9,6 +9,7 @@
     <RepositoryUrl>https://github.com/rjcarneiro/Carneiro.Http</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Description>Library that wraps http requests. Supports Get, Post, Put and Delete.</Description>
+    <PackageIconUrl>https://raw.githubusercontent.com/rjcarneiro/Carneiro.Http/master/docs/img/sheep.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
