@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Net.Http.Formatting;
@@ -24,10 +23,10 @@ namespace Carneiro.Http
     {
         private readonly HttpClient _httpClient;
 
-        public HttpOrchestrator(IOptions<HttpOrchestratorOptions> options)
+        public HttpOrchestrator(HttpOrchestratorOptions options)
         {
             _httpClient = HttpClientFactory.Create();
-            _httpClient.BaseAddress = new Uri(options.Value.Url);
+            _httpClient.BaseAddress = new Uri(options.Url);
         }
 
         public Task<HttpResponseMessage> GetAsync(string uri) => _httpClient.GetAsync(uri);
