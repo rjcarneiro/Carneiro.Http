@@ -13,13 +13,19 @@ namespace Carneiro.Http
     public class HttpOrchestratorOptions
     {
         /// <summary>
-        /// Gets or sets the URL.
+        /// Gets or sets the absolute url.
         /// </summary>
         /// <value>
-        /// The URL.
+        /// The absolute url.
         /// </value>
         public string Url { get; set; }
 
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString() => Url;
     }
 
@@ -51,7 +57,7 @@ namespace Carneiro.Http
 
             HttpOrchestratorOptions orchestratorOptions = options.Value;
 
-            if (string.IsNullOrEmpty(orchestratorOptions.Url) || Uri.IsWellFormedUriString(orchestratorOptions.Url, UriKind.Absolute))
+            if (string.IsNullOrEmpty(orchestratorOptions.Url) || !Uri.IsWellFormedUriString(orchestratorOptions.Url, UriKind.Absolute))
                 throw new InvalidOperationException("Missing a valid url for the client endpoint.");
 
             _httpClient = HttpClientFactory.Create();
