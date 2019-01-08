@@ -17,6 +17,10 @@ List<T> myCollection = await httpOrchestrator.GetAsync<T>("/users");
 
 ## Changelogs
 
+### [1.0.2] - 2019-01-09
+
+- Add IServiceCollection extensions; 
+
 ### [1.0.1] - 2019-01-08
 
  - Added Xml comments;

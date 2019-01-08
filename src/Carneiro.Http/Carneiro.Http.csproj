@@ -10,7 +10,7 @@
     <RepositoryType>git</RepositoryType>
     <Description>Make http requests easy.</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/rjcarneiro/Carneiro.Http/master/docs/img/sheep.png</PackageIconUrl>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
