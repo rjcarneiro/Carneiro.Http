@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Net.Http.Formatting;
@@ -6,9 +7,20 @@ using System.Threading.Tasks;
 
 namespace Carneiro.Http
 {
+    /// <summary>
+    /// Options for <see cref="HttpOrchestrator"/>.
+    /// </summary>
     public class HttpOrchestratorOptions
     {
+        /// <summary>
+        /// Gets or sets the URL.
+        /// </summary>
+        /// <value>
+        /// The URL.
+        /// </value>
         public string Url { get; set; }
+
+        public override string ToString() => Url;
     }
 
     internal static class HttpOrchestratorExtensions
@@ -19,14 +31,31 @@ namespace Carneiro.Http
         }
     }
 
+    /// <summary>
+    /// Class that handles http requests.
+    /// </summary>
     public class HttpOrchestrator
     {
         private readonly HttpClient _httpClient;
 
-        public HttpOrchestrator(HttpOrchestratorOptions options)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpOrchestrator"/> class.
+        /// </summary>
+        /// <param name="options">The options.</param>
+        /// <exception cref="ArgumentNullException">Case <paramref name="options"/> is null.</exception>
+        /// <exception cref="InvalidOperationException">Case <seealso cref="HttpOrchestratorOptions.Url"/> is null, empty or have an invalid uri schema.</exception>
+        public HttpOrchestrator(IOptions<HttpOrchestratorOptions> options)
         {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            HttpOrchestratorOptions orchestratorOptions = options.Value;
+
+            if (string.IsNullOrEmpty(orchestratorOptions.Url) || Uri.IsWellFormedUriString(orchestratorOptions.Url, UriKind.Absolute))
+                throw new InvalidOperationException("Missing a valid url for the client endpoint.");
+
             _httpClient = HttpClientFactory.Create();
-            _httpClient.BaseAddress = new Uri(options.Url);
+            _httpClient.BaseAddress = new Uri(orchestratorOptions.Url);
         }
 
         public Task<HttpResponseMessage> GetAsync(string uri) => _httpClient.GetAsync(uri);
