@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
-using System.Net.Http.Formatting;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Carneiro.Http
@@ -60,8 +60,10 @@ namespace Carneiro.Http
             if (string.IsNullOrEmpty(orchestratorOptions.Url) || !Uri.IsWellFormedUriString(orchestratorOptions.Url, UriKind.Absolute))
                 throw new InvalidOperationException("Missing a valid url for the client endpoint.");
 
-            _httpClient = HttpClientFactory.Create();
-            _httpClient.BaseAddress = new Uri(orchestratorOptions.Url);
+            _httpClient = new HttpClient
+            {
+                BaseAddress = new Uri(orchestratorOptions.Url)
+            };
         }
 
         public Task<HttpResponseMessage> GetAsync(string uri) => _httpClient.GetAsync(uri);
@@ -75,29 +77,34 @@ namespace Carneiro.Http
 
         public Task<HttpResponseMessage> PostAsync<T>(string uri, T model)
         {
-            return _httpClient.PostAsync<T>(uri, model, new JsonMediaTypeFormatter());
+            return _httpClient.PostAsync(uri, ToStringContent<T>(model));
         }
 
         public async Task<T> PostAsync<T>(string uri, object model) where T : class
         {
-            HttpResponseMessage response = await _httpClient.PostAsync(uri, model, new JsonMediaTypeFormatter());
+            HttpResponseMessage response = await _httpClient.PostAsync(uri, ToStringContent(model));
             response.EnsureSuccessStatusCode();
             return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
         }
 
         public Task<HttpResponseMessage> PutAsync<T>(string uri, T model)
         {
-            return _httpClient.PutAsync<T>(uri, model, new JsonMediaTypeFormatter());
+            return _httpClient.PutAsync(uri, ToStringContent(model));
         }
 
         public async Task<T> PutAsync<T>(string uri, object model) where T : class
         {
-            HttpResponseMessage response = await _httpClient.PutAsync(uri, model, new JsonMediaTypeFormatter());
+            HttpResponseMessage response = await _httpClient.PutAsync(uri, ToStringContent(model));
             response.EnsureSuccessStatusCode();
             return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
         }
 
         public Task<HttpResponseMessage> DeleteAsync(string uri) => _httpClient.DeleteAsync(uri);
+
+        private StringContent ToStringContent<T>(T model)
+        {
+            return new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+        }
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

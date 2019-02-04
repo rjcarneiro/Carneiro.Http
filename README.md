@@ -17,6 +17,10 @@ List<T> myCollection = await httpOrchestrator.GetAsync<T>("/users");
 
 ## Changelogs
 
+### [1.1.0] - 2019-02-04
+
+- Drop old dependencies;
+
 ### [1.0.2] - 2019-01-09
 
 - Add IServiceCollection extensions; 
