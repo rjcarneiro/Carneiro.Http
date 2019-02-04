@@ -36,4 +36,4 @@ List<T> myCollection = await httpOrchestrator.GetAsync<T>("/users");
 
 ## Team
 
-@rjcarneiro
+- [Ricardo Carneiro](https://github.com/rjcarneiro/)
