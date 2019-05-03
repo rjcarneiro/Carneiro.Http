@@ -31,10 +31,7 @@ namespace Carneiro.Http
 
     internal static class HttpOrchestratorExtensions
     {
-        internal static async Task<T> GetContentAsync<T>(this HttpResponseMessage httpResponseMessage)
-        {
-            return JsonConvert.DeserializeObject<T>(await httpResponseMessage.Content.ReadAsStringAsync());
-        }
+        internal static async Task<T> GetContentAsync<T>(this HttpResponseMessage httpResponseMessage) => JsonConvert.DeserializeObject<T>(await httpResponseMessage.Content.ReadAsStringAsync());
     }
 
     /// <summary>
@@ -75,10 +72,7 @@ namespace Carneiro.Http
             return await response.GetContentAsync<T>();
         }
 
-        public Task<HttpResponseMessage> PostAsync<T>(string uri, T model)
-        {
-            return _httpClient.PostAsync(uri, ToStringContent<T>(model));
-        }
+        public Task<HttpResponseMessage> PostAsync<T>(string uri, T model) => _httpClient.PostAsync(uri, ToStringContent<T>(model));
 
         public async Task<T> PostAsync<T>(string uri, object model) where T : class
         {
@@ -87,10 +81,7 @@ namespace Carneiro.Http
             return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
         }
 
-        public Task<HttpResponseMessage> PutAsync<T>(string uri, T model)
-        {
-            return _httpClient.PutAsync(uri, ToStringContent(model));
-        }
+        public Task<HttpResponseMessage> PutAsync<T>(string uri, T model) => _httpClient.PutAsync(uri, ToStringContent(model));
 
         public async Task<T> PutAsync<T>(string uri, object model) where T : class
         {
@@ -101,10 +92,7 @@ namespace Carneiro.Http
 
         public Task<HttpResponseMessage> DeleteAsync(string uri) => _httpClient.DeleteAsync(uri);
 
-        private StringContent ToStringContent<T>(T model)
-        {
-            return new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-        }
+        private StringContent ToStringContent<T>(T model) => new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
