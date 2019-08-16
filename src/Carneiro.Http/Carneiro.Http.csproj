@@ -12,6 +12,21 @@
     <PackageIconUrl>https://raw.githubusercontent.com/rjcarneiro/Carneiro.Http/master/docs/img/sheep.png</PackageIconUrl>
     <Version>1.1.0</Version>
     <Company>Ricardo Carneiro</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\Carneiro.Http.xml</DocumentationFile>
+    <OutputPath>bin\Debug\netstandard2.0\</OutputPath>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\Release\netstandard2.0</OutputPath>
+    <DocumentationFile>bin\Release\netstandard2.0\Carneiro.Http.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
   </PropertyGroup>
 
   <ItemGroup>
