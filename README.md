@@ -2,6 +2,10 @@
 
 Lightweight library to do Http requests easily.
 
+## Nuget Package
+
+You can download this package directly from [Nuget.org](https://www.nuget.org/packages/Carneiro.Http).
+
 ## How to use
 
 Register `HttpOrchestrator` with your `IServiceCollection` from your dotnet core project.
