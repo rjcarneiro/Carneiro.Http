@@ -1,21 +1,43 @@
 # Carneiro Http
 
-Lightweight library to do Http requests easily. 
+Lightweight library to do Http requests easily.
 
 ## How to use
 
+Register `HttpOrchestrator` with your `IServiceCollection` from your dotnet core project.
+
 ```csharp
-var options = Options.Create<HttpOrchestratorOptions>(new HttpOrchestratorOptions
-{
-    Url = "http://myurl.com/api"
-});
-
-var httpOrchestrator = new HttpOrchestrator(options);
-
-List<T> myCollection = await httpOrchestrator.GetAsync<T>("/users");
+services.RegisterHttpOrchestrator("http://myurl.com/api");
 ```
 
+Then you can receive `HttpOrchestrator` on your ctor in your services or controllers. It's register as `transient`.
+
+```csharp
+public class AccountController
+{
+    private readonly HttpOrchestrator _httpOrchestrator;
+
+    public AccountController(HttpOrchestrator httpOrchestrator)
+    {
+        _httpOrchestrator = httpOrchestrator;
+    }
+
+    public async Task<IActionResult> Index()
+    {
+        User user = await httpOrchestrator.GetAsync<User>("/users/1");
+    }
+}
+```
+
+In version 2.0.0 `HttpOrchestrator` works directly with `IHttpClientFactory` that, on the moment of `RegisterHttpOrchestrator` registers a http client named `HttpOrchestrator`.
+
 ## Changelogs
+
+### [2.0.0] - 2019-08-16
+
+- Drop `HttpOrchestratorOptions`;
+- Drop disposable;
+- Added `IHttpClientFactory` to manage http client life cycle.
 
 ### [1.1.0] - 2019-02-04
 
@@ -23,17 +45,17 @@ List<T> myCollection = await httpOrchestrator.GetAsync<T>("/users");
 
 ### [1.0.2] - 2019-01-09
 
-- Add IServiceCollection extensions; 
+- Add IServiceCollection extensions;
 
 ### [1.0.1] - 2019-01-08
 
- - Added Xml comments;
- - Add unit tests;
+- Added Xml comments;
+- Add unit tests;
 
 ### [1.0.0] - 2019-01-07
 
- - First release of the library;
+- First release of the library;
 
 ## Team
 
-- [Ricardo Carneiro](https://github.com/rjcarneiro/)
+[Ricardo Carneiro](https://github.com/rjcarneiro/)
