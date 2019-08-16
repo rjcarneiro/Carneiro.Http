@@ -1,6 +1,7 @@
 using Bogus;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using System;
 
 namespace Carneiro.Http.Tests.Core
 {
@@ -17,27 +18,12 @@ namespace Carneiro.Http.Tests.Core
         [Test]
         public void CreateObject_Success()
         {
-            var options = Options.Create<HttpOrchestratorOptions>(new HttpOrchestratorOptions
-            {
-                Url = _faker.Internet.Url()
-            });
+            IServiceProvider serviceProvider = new ServiceCollection()
+                .RegisterHttpOrchestrator(_faker.Internet.Url()).BuildServiceProvider();
 
-            var orchestrator = new HttpOrchestrator(options);
+            HttpOrchestrator httpOrchestrator = serviceProvider.GetService<HttpOrchestrator>();
 
-            Assert.That(orchestrator, Is.Not.Null);
-        }
-
-        [Test]
-        public void CreateOptions_Success()
-        {
-            string url = _faker.Internet.Url();
-            var options = Options.Create<HttpOrchestratorOptions>(new HttpOrchestratorOptions
-            {
-                Url = url
-            });
-            Assert.That(options, Is.Not.Null);
-            Assert.That(options.Value, Is.InstanceOf<HttpOrchestratorOptions>());
-            Assert.That(options.Value.Url, Is.EqualTo(url));
+            Assert.That(httpOrchestrator, Is.Not.Null);
         }
     }
 }
