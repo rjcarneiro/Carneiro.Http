@@ -1,6 +1,7 @@
 # Carneiro Http
 
-Lightweight library to do Http requests easily.
+![GitHub](https://img.shields.io/github/license/rjcarneiro/Carneiro.Http?style=flat-square) ![Nuget](https://img.shields.io/nuget/v/Carneiro.Host?style=flat-square) ![Nuget](https://img.shields.io/nuget/dt/Carneiro.Host?style=flat-square)
+
 
 ## Nuget Package
 
