@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Carneiro.Http
@@ -64,7 +64,7 @@ namespace Carneiro.Http
         {
             HttpResponseMessage response = await _httpClient.PostAsync(uri, ToStringContent(model));
             response.EnsureSuccessStatusCode();
-            return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync());
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Carneiro.Http
         {
             HttpResponseMessage response = await _httpClient.PutAsync(uri, ToStringContent(model));
             response.EnsureSuccessStatusCode();
-            return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync());
         }
 
         /// <summary>
@@ -97,6 +97,6 @@ namespace Carneiro.Http
         /// <returns>An <see cref="HttpResponseMessage"/> with the response.</returns>
         public Task<HttpResponseMessage> DeleteAsync(string uri) => _httpClient.DeleteAsync(uri);
 
-        private StringContent ToStringContent<T>(T model) => new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+        private StringContent ToStringContent<T>(T model) => new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
     }
 }

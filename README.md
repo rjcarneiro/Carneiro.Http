@@ -38,11 +38,16 @@ In version 2.0.0 `HttpOrchestrator` works directly with `IHttpClientFactory` tha
 
 ## Changelogs
 
+### [3.0.0] - 2019-09-28
+
+- Drop `Newtonsoft.Json` nuget dependency;
+- Migrate to dotnet core `3.0.0`;
+
 ### [2.0.0] - 2019-08-16
 
 - Drop `HttpOrchestratorOptions`;
 - Drop disposable;
-- Added `IHttpClientFactory` to manage http client life cycle.
+- Added `IHttpClientFactory` to manage http client life cycle;
 
 ### [1.1.0] - 2019-02-04
 

@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <IsPackable>true</IsPackable>
     <PackageTags>http,request,handler</PackageTags>
     <Authors>Ricardo Carneiro</Authors>
     <Copyright>Copyright 2019 Ricardo Carneiro</Copyright>
@@ -10,7 +11,8 @@
     <RepositoryType>git</RepositoryType>
     <Description>Make http requests easy.</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/rjcarneiro/Carneiro.Http/master/docs/img/sheep.png</PackageIconUrl>
-    <Version>1.1.0</Version>
+    <PackageIcon>sheep.png</PackageIcon>
+    <Version>3.0.0</Version>
     <Company>Ricardo Carneiro</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression></PackageLicenseExpression>
@@ -32,15 +34,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+      <Visible>False</Visible>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\docs\img\sheep.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+      <Visible>False</Visible>
     </None>
   </ItemGroup>
 

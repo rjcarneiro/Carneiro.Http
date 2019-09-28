@@ -18,7 +18,7 @@ namespace Carneiro.Http
         {
             if (string.IsNullOrEmpty(url) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
                 throw new InvalidOperationException("Missing a valid url for the client endpoint.");
-            
+
             services.AddTransient<HttpOrchestrator>();
             services.AddHttpClient(nameof(HttpOrchestrator), c =>
             {
