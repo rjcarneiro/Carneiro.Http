@@ -1,11 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Carneiro.Http", "Carneiro.Http\Carneiro.Http.csproj", "{13018A71-2E2D-40BD-8FB2-F0A8E6A9163B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Http.Tests.Core", "Carneiro.Http.Tests.Core\Carneiro.Http.Tests.Core.csproj", "{C93444B9-6004-4211-A6F2-4CFBC09D68BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Carneiro.Http.Tests.Core", "Carneiro.Http.Tests.Core\Carneiro.Http.Tests.Core.csproj", "{C93444B9-6004-4211-A6F2-4CFBC09D68BE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9B14E684-CD96-48C6-BA10-BE2F17ECDE36}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

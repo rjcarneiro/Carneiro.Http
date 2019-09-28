@@ -2,7 +2,6 @@
 
 ![GitHub](https://img.shields.io/github/license/rjcarneiro/Carneiro.Http?style=flat-square) ![Nuget](https://img.shields.io/nuget/v/Carneiro.Http?style=flat-square) ![Nuget](https://img.shields.io/nuget/dt/Carneiro.Http?style=flat-square)
 
-
 ## Nuget Package
 
 You can download this package directly from [Nuget.org](https://www.nuget.org/packages/Carneiro.Http).
