@@ -12,6 +12,7 @@ namespace Carneiro.Http
     public class HttpOrchestrator
     {
         private readonly HttpClient _httpClient;
+        private readonly JsonSerializerOptions _jsonOptions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpOrchestrator"/> class.
@@ -22,6 +23,11 @@ namespace Carneiro.Http
         public HttpOrchestrator(IHttpClientFactory httpClientFactory)
         {
             _httpClient = httpClientFactory.CreateClient(nameof(HttpOrchestrator));
+            _jsonOptions = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                IgnoreNullValues = true
+            };
         }
 
         /// <summary>
@@ -41,7 +47,7 @@ namespace Carneiro.Http
         {
             HttpResponseMessage response = await GetAsync(uri);
             response.EnsureSuccessStatusCode();
-            return await response.GetContentAsync<T>();
+            return await FromRequestAsync<T>(response);
         }
 
         /// <summary>
@@ -64,7 +70,7 @@ namespace Carneiro.Http
         {
             HttpResponseMessage response = await _httpClient.PostAsync(uri, ToStringContent(model));
             response.EnsureSuccessStatusCode();
-            return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync());
+            return await FromRequestAsync<T>(response);
         }
 
         /// <summary>
@@ -87,7 +93,7 @@ namespace Carneiro.Http
         {
             HttpResponseMessage response = await _httpClient.PutAsync(uri, ToStringContent(model));
             response.EnsureSuccessStatusCode();
-            return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync());
+            return await FromRequestAsync<T>(response);
         }
 
         /// <summary>
@@ -97,6 +103,8 @@ namespace Carneiro.Http
         /// <returns>An <see cref="HttpResponseMessage"/> with the response.</returns>
         public Task<HttpResponseMessage> DeleteAsync(string uri) => _httpClient.DeleteAsync(uri);
 
-        private StringContent ToStringContent<T>(T model) => new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+        private StringContent ToStringContent<T>(T model) => new StringContent(JsonSerializer.Serialize(model, _jsonOptions), Encoding.UTF8, "application/json");
+
+        private async Task<T> FromRequestAsync<T>(HttpResponseMessage httpResponseMessage) => JsonSerializer.Deserialize<T>(await httpResponseMessage.Content.ReadAsStringAsync(), _jsonOptions);
     }
 }
